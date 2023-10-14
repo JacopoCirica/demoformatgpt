@@ -28,6 +28,7 @@ body {
   flex-direction: row; /* make chat_container and iframe sit side by side */
   height: calc(100% - 60px);  /* calculate the height taking into account the height of the form */
   overflow: hidden;  /* hide any content going beyond the height */
+  
 }
 
 #chat_container, iframe {
@@ -39,6 +40,7 @@ body {
 
 
 #chat_container {
+  
   width: 50%;
   height: 100%;
   overflow-y: scroll;
@@ -67,9 +69,55 @@ iframe{
   border: 0;
   outline: 0;
   
-  border-top: 25px solid #40414F;  /* Add border to the top */
+  /*border-top: 25px solid #40414F;  /* Add border to the top */
   border-right: 25px solid #40414F;  /* Add border to the right */
   border-left: 25px solid #40414F;  /* Add border to the left */
+}
+
+#button_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background: #40414F;
+}
+
+
+.iframe_button {
+  padding: 10px 20px;  /* Increase the padding for a larger button */
+  background-color: #40414F;
+  color: #dcdcdc;
+  border: 2px solid #5436DA;  /* Add a border */
+  border-radius: 8px;  /* Slightly rounded corners */
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; 
+  font-size: 16px;  /* Adjust font size if needed */
+  font-weight: 500;  /* Make the text a bit bolder */
+  letter-spacing: 1px;  /* Space the letters a bit for better readability */
+}
+
+.iframe_button:hover {
+  background-color: #5436DA;
+  color: #40414F;  /* Change the text color on hover for contrast */
+  border-color: #40414F;  /* Change border color on hover */
+}
+.button1, .button2.clicked {
+  background-color: #E57373;
+  border: 2px solid #B71C1C;
+}
+
+.button2, .button1.clicked {
+  background-color: #5436DA;
+  border: 2px solid #40414F;
+}
+
+.button2:hover {
+  background-color: #5436DA;
+  color: #40414F;
+  border-color: #40414F;
 }
 
 /* hides scrollbar */
