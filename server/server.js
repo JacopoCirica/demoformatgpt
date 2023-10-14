@@ -35,10 +35,10 @@ app.post('/', async (req, res) => {
 
 
     const response = await openai.chat.completions.create({
-        model: "gpt-4",
+        model: "gpt-3.5-turbo-16k",
         messages: previous_message,
         temperature: 1,
-        max_tokens: 800,
+        max_tokens: 1000,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
