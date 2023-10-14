@@ -5,8 +5,34 @@ const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
 const previous_message=[{
   "role": "system",
-  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript. You do NOT use <script> tag for javascript code."
+  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript"
 }]
+let model='gpt-3.5-turbo'
+
+document.addEventListener("DOMContentLoaded", function() {
+    const button1 = document.querySelector('.button1');
+    const button2 = document.querySelector('.button2');
+
+    function toggleButtons() {
+        // Toggle 'clicked' class for both buttons
+        button1.classList.toggle('clicked');
+        button2.classList.toggle('clicked');
+    }
+
+    // Add the toggle behavior to both button click events
+    button1.addEventListener('click', function() {
+        console.log("GPT-3.5");
+        model='gpt-3.5-turbo'
+        toggleButtons();
+    });
+    button2.addEventListener('click', function() {
+        console.log("GPT-4");
+        model='gpt-4'
+        
+        toggleButtons();
+    });
+});
+
 
 let loadInterval
 
@@ -102,7 +128,9 @@ const handleSubmit = async (e) => {
         },
         body: JSON.stringify({
             prompt: data.get('prompt'),
-            previous: previous_message
+            previous: previous_message,
+            chatmodel: model
+            
         })
     })
 
