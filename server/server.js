@@ -12,7 +12,7 @@ dotenv.config()
 //const openai = new OpenAIApi(configuration);
 
 const openai= new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: "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",
 });
 
 
@@ -30,20 +30,22 @@ app.post('/', async (req, res) => {
   try {
     const prompt = req.body.prompt;
     const previous_message = req.body.previous
+    const chatmodel= req.body.chatmodel
     console.log(prompt)
     console.log(previous_message)
 
 
     const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
+        model: chatmodel,
         messages: previous_message,
         temperature: 1,
-        max_tokens: 1000,
+        max_tokens: 3000,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
       });
     console.log(prompt)
+    console.log(chatmodel)
     //console.log(response.choices[0].message.content)
     let inputText=response.choices[0].message.content
 
