@@ -7,7 +7,7 @@ const previous_message=[{
   "role": "system",
   "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript"
 }]
-let model='gpt-3.5-turbo-16k'
+let model='gpt-4'
 
 document.addEventListener("DOMContentLoaded", function() {
     const button1 = document.querySelector('.button1');
