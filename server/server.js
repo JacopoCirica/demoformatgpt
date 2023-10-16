@@ -39,7 +39,7 @@ app.post('/', async (req, res) => {
         model: chatmodel,
         messages: previous_message,
         temperature: 1,
-        max_tokens: 1500,
+        max_tokens: 2000,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
