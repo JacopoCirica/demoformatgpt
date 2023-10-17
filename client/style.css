@@ -119,6 +119,13 @@ iframe{
   color: #40414F;
   border-color: #40414F;
 }
+#arrow_container {
+  margin-left: auto;
+}
+
+.leftarrow i, .rightarrow i {
+  font-size: 32px; /* adjust this value to your desired size */
+}
 
 /* hides scrollbar */
 #chat_container::-webkit-scrollbar {
