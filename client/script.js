@@ -7,11 +7,17 @@ const previous_message=[{
   "role": "system",
   "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript"
 }]
-let model='gpt-4'
+let htmlContent;
+let precedente;
+let model='gpt-3.5-turbo'
+let position=0
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const button1 = document.querySelector('.button1');
     const button2 = document.querySelector('.button2');
+    const rightarrow = document.querySelector('.rightarrow');
+    const leftarrow = document.querySelector('.leftarrow');
 
     function toggleButtons() {
         // Toggle 'clicked' class for both buttons
@@ -22,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add the toggle behavior to both button click events
     button1.addEventListener('click', function() {
         console.log("GPT-3.5");
-        model='gpt-3.5-turbo-16k'
+        model='gpt-3.5-turbo'
         toggleButtons();
     });
     button2.addEventListener('click', function() {
@@ -31,6 +37,72 @@ document.addEventListener("DOMContentLoaded", function() {
         
         toggleButtons();
     });
+    rightarrow.addEventListener('click', function(){
+        console.log("freccia destra")
+        
+        
+        if (position + 2 > 3) {
+            position=position + 2
+            console.log('ciao')
+            console.log(previous_message[position].content)
+            precedente=previous_message[position].content
+            let match5 = precedente.match(/```html([\s\S]*?)```/i); // Use regex to find html content
+            let match6 = precedente.match(/```javascript([\s\S]*?)```/); // Use regex to find html content
+        
+        
+
+            if (match5 && match6) {  // If there's a match and match2
+          
+            
+                htmlContent = match5[1] + "</html>";  // Add </html> to the extracted text because it was part of the delimiter
+                output.contentDocument.body.innerHTML = htmlContent.trim()
+                console.log(match6[1])
+                output.contentWindow.eval(match6[1])
+                console.log(htmlContent.trim()); // Print out the HTML content
+        
+        
+        }else if (match5){
+            htmlContent = match5[1];  // Add </html> to the extracted text because it was part of the delimiter
+            output.contentDocument.body.innerHTML = htmlContent.trim()
+            console.log(htmlContent.trim()); // Print out the HTML content
+        }
+         else {
+        console.log("No HTML content found");
+        }
+        }
+        
+    });
+    leftarrow.addEventListener('click', function(){
+        console.log("freccia sinistra")
+        if (position > 3) {
+            position=position - 2
+            console.log(previous_message[position].content)
+            precedente=previous_message[position].content
+            let match3 = precedente.match(/```html([\s\S]*?)```/i); // Use regex to find html content
+            let match4 = precedente.match(/```javascript([\s\S]*?)```/); // Use regex to find html content
+        
+        
+
+            if (match3 && match4) {  // If there's a match and match2
+          
+            
+                htmlContent = match3[1] + "</html>";  // Add </html> to the extracted text because it was part of the delimiter
+                output.contentDocument.body.innerHTML = htmlContent.trim()
+                console.log(match4[1])
+                output.contentWindow.eval(match4[1])
+                console.log(htmlContent.trim()); // Print out the HTML content
+        
+        
+        }else if (match3){
+            htmlContent = match3[1];  // Add </html> to the extracted text because it was part of the delimiter
+            output.contentDocument.body.innerHTML = htmlContent.trim()
+            console.log(htmlContent.trim()); // Print out the HTML content
+        }
+         else {
+        console.log("No HTML content found");
+        }
+        }
+    })
 });
 
 
@@ -121,7 +193,7 @@ const handleSubmit = async (e) => {
     // messageDiv.innerHTML = "..."
     loader(messageDiv)
 
-    const response = await fetch('https://formatgpt.onrender.com', {
+    const response = await fetch('https://formatgpt.onrender.com/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -145,11 +217,12 @@ const handleSubmit = async (e) => {
           "role": "assistant",
           "content":parsedData})
         console.log(previous_message)
+        position=previous_message.length - 1
         let inputText=data.bot
         let match = inputText.match(/```html([\s\S]*?)```/i); // Use regex to find html content
         let match2 = inputText.match(/```javascript([\s\S]*?)```/); // Use regex to find html content
         
-        let htmlContent;
+        
 
         if (match && match2) {  // If there's a match and match2
           
