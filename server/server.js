@@ -22,7 +22,7 @@ app.use(express.json())
 
 app.get('/', async (req, res) => {
   res.status(200).send({
-    message: 'Hello from CodeX!'
+    message: 'Hello from FormatGPT!'
   })
 })
 
@@ -33,11 +33,13 @@ app.post('/', async (req, res) => {
     const chatmodel= req.body.chatmodel
     console.log(prompt)
     console.log(previous_message)
+    let risultato = [previous_message[0], previous_message.slice(-4)];
+    let flatArray = [risultato[0], ...risultato[1]];
 
 
     const response = await openai.chat.completions.create({
         model: chatmodel,
-        messages: previous_message,
+        messages: flatArray,
         temperature: 1,
         max_tokens: 5000,
         top_p: 1,
