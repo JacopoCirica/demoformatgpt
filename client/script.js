@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     button2.addEventListener('click', function() {
         console.log("GPT-4");
-        model='gpt-4'
+        model='gpt-4-32k'
         
         toggleButtons();
     });
