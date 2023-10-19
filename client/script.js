@@ -9,7 +9,7 @@ const previous_message=[{
 }]
 let htmlContent;
 let precedente;
-let model='gpt-3.5-turbo'
+let model='gpt-3.5-turbo-0613'
 let position=0
 
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add the toggle behavior to both button click events
     button1.addEventListener('click', function() {
         console.log("GPT-3.5");
-        model='gpt-3.5-turbo'
+        model='gpt-3.5-turbo-0613'
         toggleButtons();
     });
     button2.addEventListener('click', function() {
