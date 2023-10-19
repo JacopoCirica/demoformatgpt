@@ -38,8 +38,8 @@ app.post('/', async (req, res) => {
     const response = await openai.chat.completions.create({
         model: chatmodel,
         messages: previous_message,
-        temperature: 0.5,
-        max_tokens: 3500,
+        temperature: 1,
+        max_tokens: 6000,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
