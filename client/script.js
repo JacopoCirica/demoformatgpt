@@ -1,6 +1,7 @@
 import bot from './assets/bot.svg'
 import user from './assets/user.svg'
 
+const textarea = document.getElementById('textarea');
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
 const previous_message=[{
@@ -257,7 +258,19 @@ const handleSubmit = async (e) => {
 
 form.addEventListener('submit', handleSubmit)
 form.addEventListener('keyup', (e) => {
-    if (e.keyCode === 13) {
-        handleSubmit(e)
+    if (e.shiftKey && e.key === 'Enter') {
+        e.preventDefault();
+        var currentRows = textarea.rows;
+        if (currentRows < 5) {
+            var updatedRows = currentRows + 1;
+            textarea.rows = updatedRows;
+            console.log('Capitano')
+        }
+        
     }
+    else if (e.keyCode === 13) {
+        handleSubmit(e)
+        textarea.rows=1
+    }
+
 })
