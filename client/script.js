@@ -45,10 +45,13 @@ input.addEventListener('keyup', function(event) {
         modal.style.display = "none";
     }
 });
-const previous_message=[{
+
+let previous_message=[{
   "role": "system",
-  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript. Always write  he HTML file with the CSS styling incorporated by starting with ```html. Always use code and text from previous conversations, if any."
+  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript."
 }]
+
+
 let htmlContent;
 let precedente;
 let model='gpt-3.5-turbo-16k'
@@ -207,7 +210,7 @@ function chatStripe(isAi, value, uniqueId) {
 }
 
 const handleSubmit = async (e) => {
-  if (inputText.length > 0){
+    if (inputText.length > 0){
         previous_message=[{
             "role": "system",
             "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript." + inputText
