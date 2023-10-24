@@ -233,3 +233,53 @@ form img {
   width: 30px;
   height: 30px;
 }
+/* stile modal window.css */
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #40414F;;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+  position: relative;
+}
+
+input#inputTesto {
+  width: 90%; 
+  padding: 15px;
+  position: relative;
+  bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  
+  margin-top: 15px;
+}
+
+.chiudi {
+  color: #aaa;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.chiudi:hover,
+.chiudi:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
