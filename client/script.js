@@ -4,6 +4,47 @@ import user from './assets/user.svg'
 const textarea = document.getElementById('textarea');
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
+// Ottenere l'elemento modal e gli altri elementi necessari
+let modal = document.getElementById("finestraModale");
+let btn = document.getElementById("shadow_prompt");
+let span = document.getElementsByClassName("chiudi")[0];
+
+// Quando l'utente clicca sul bottone, apre la modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// Quando l'utente clicca sul simbolo (x), chiude la modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Quando l'utente clicca fuori dalla modal, chiude la modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+// Recupera l'input e l'elemento dove mostrare il testo
+let input = document.getElementById("inputTesto");
+//let testoSalvatoEl = document.getElementById("testoSalvato");
+let inputText=""
+
+
+// Quando l'utente preme un tasto nell'input
+input.addEventListener('keyup', function(event) {
+    if(event.keyCode === 13) {  // Se il tasto è "Enter"
+        // Salva il testo in localStorage
+        //localStorage.setItem('testo', input.value);
+
+        // Mostra il testo nella pagina
+        //testoSalvatoEl.innerText = input.value;
+        inputText=input.value
+
+        // Chiudi la modal
+        modal.style.display = "none";
+    }
+});
 const previous_message=[{
   "role": "system",
   "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript. Always write  he HTML file with the CSS styling incorporated by starting with ```html. Always use code and text from previous conversations, if any."
@@ -166,6 +207,12 @@ function chatStripe(isAi, value, uniqueId) {
 }
 
 const handleSubmit = async (e) => {
+  if (inputText.length > 0){
+        previous_message=[{
+            "role": "system",
+            "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript." + inputText
+          }]
+    }
     e.preventDefault()
 
     const data = new FormData(form)
