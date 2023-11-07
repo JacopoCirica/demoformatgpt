@@ -168,16 +168,17 @@ function loader(element) {
 }
 
 function typeText(element, text) {
-    let index = 0
-
-    let interval = setInterval(() => {
-        if (index < text.length) {
-            element.innerHTML += text.charAt(index)
-            index++
-        } else {
-            clearInterval(interval)
-        }
-    }, 20)
+    //let index = 0
+    
+    //let interval = setInterval(() => {
+    //    if (index < text.length) {
+    //        element.innerHTML += text.charAt(index)
+    //        index++
+    //    } else {
+    //        clearInterval(interval)
+    //    }
+    //}, 20)
+    element.innerHTML=text
 }
 
 // generate unique ID for each message div of bot
