@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-    let previous_message='{"role": "system","content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Never write the javascript component. "}'
+    let previous_message='{"role": "system","content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Never write the javascript component.When replying, show all the code (including that of your previous message), taking into account the user's change requests. "}'
     const prompt = req.body.prompt;
     let previous_messages = req.body.previous
     let previous_messages1=previous_messages.slice(-2)
