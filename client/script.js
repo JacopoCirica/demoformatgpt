@@ -8,6 +8,11 @@ const chatContainer = document.querySelector('#chat_container')
 let modal = document.getElementById("finestraModale");
 let btn = document.getElementById("shadow_prompt");
 let span = document.getElementsByClassName("chiudi")[0];
+var coll = document.getElementsByClassName("collapsible");
+var counter= document.getElementsByClassName("counter")[0];
+var counter_html=0;
+
+var i;
 
 // Quando l'utente clicca sul bottone, apre la modal
 btn.onclick = function() {
@@ -84,8 +89,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     rightarrow.addEventListener('click', function(){
         console.log("freccia destra")
-        
-        
+        if (parseInt(counter.innerHTML) < counter_html){
+            counter.innerHTML=parseInt(counter.innerHTML)+1
+        }
         if (position + 2 > 3) {
             position=position + 2
             console.log('ciao')
@@ -125,7 +131,9 @@ document.addEventListener("DOMContentLoaded", function() {
             precedente=previous_message[position].content
             let match3 = precedente.match(/```html([\s\S]*?)```/i); // Use regex to find html content
             let match4 = precedente.match(/```javascript([\s\S]*?)```/); // Use regex to find html content
-        
+        if (parseInt(counter.innerHTML)>0){
+                counter.innerHTML=parseInt(counter.innerHTML)-1
+            }
         
 
             if (match3 && match4) {  // If there's a match and match2
@@ -180,6 +188,14 @@ function typeText(element, text) {
     //}, 20)
     element.innerHTML=text
 }
+function typeText1(element, text,prova,uniqueIdbot,codice) {
+    var blabla = document.getElementById(uniqueIdbot);
+    blabla.style.display='block'
+    var commento=document.getElementById(codice)
+    commento.innerText=prova
+     element.innerText += text
+         
+}
 
 // generate unique ID for each message div of bot
 // necessary for typing text effect for that specific reply
@@ -204,6 +220,28 @@ function chatStripe(isAi, value, uniqueId) {
                     />
                 </div>
                 <div class="message" id=${uniqueId}>${value}</div>
+            </div>
+        </div>
+    `
+    )
+}
+function chatStripeBot(value,uniqueId,uniqueIdbot,codice){
+    return (
+        `
+        <div class="wrapper ai">
+            <div class="chat">
+                <div class="profile">
+                    <img 
+                      src=${bot} 
+                      alt= 'bot'
+                     />
+                </div>
+                <div class="message" id=${uniqueId}>${value}</div>
+                
+                </div>
+                <button type="button" id=${uniqueIdbot} class="collapsible">Open Code</button>
+                <div class="content">
+                <p id=${codice} class="html">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
         </div>
     `
@@ -234,7 +272,20 @@ const handleSubmit = async (e) => {
 
     // bot's chatstripe
     const uniqueId = generateUniqueId()
-    chatContainer.innerHTML += chatStripe(true, " ", uniqueId)
+    const uniqueIdbot=generateUniqueId()
+    const codice=generateUniqueId()
+    chatContainer.innerHTML += chatStripeBot(" ", uniqueId,uniqueIdbot,codice)
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
 
     // to focus scroll to the bottom 
     chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -284,21 +335,31 @@ const handleSubmit = async (e) => {
             console.log(match2[1])
             output.contentWindow.eval(match2[1])
             console.log(htmlContent.trim()); // Print out the HTML content
+            typeText(messageDiv, parsedData)
         
         
         }else if (match){
           htmlContent = match[1];  // Add </html> to the extracted text because it was part of the delimiter
             output.contentDocument.body.innerHTML = htmlContent.trim()
             console.log(htmlContent.trim()); // Print out the HTML content
+            let provolone=inputText.replace(htmlContent,"")
+            
+            provolone=provolone.replace("```html",'(Check out the code below)')
+            provolone=provolone.replace("```","")
+            
+            counter_html=counter_html+1
+            counter.innerHTML=parseInt(counter.innerHTML)+1
+            typeText1(messageDiv, provolone,htmlContent,uniqueIdbot,codice)
         }
          else {
         console.log("No HTML content found");
+        typeText(messageDiv, parsedData)
         }
         
         
         
 
-        typeText(messageDiv, parsedData)
+        //typeText(messageDiv, parsedData)
     } else {
         const err = await response.text()
 
