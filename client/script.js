@@ -54,7 +54,7 @@ input.addEventListener('keyup', function(event) {
 
 let previous_message=[{
   "role": "system",
-  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript"
+  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). "
 }]
 
 
