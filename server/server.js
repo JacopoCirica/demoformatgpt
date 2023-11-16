@@ -28,13 +28,29 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
+    let previous_message='{"role": "system","content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Never write the javascript component. "}'
     const prompt = req.body.prompt;
-    const previous_message = req.body.previous
+    let previous_messages = req.body.previous
+    let previous_messages1=previous_messages.slice(-2)
+    //previous_messages1.unshift(previous_message)
+  
+    //previous_message.push(previous_messages1)
+    
+      //previous_messages.splice(1, previous_messages - 2);  // Remove elements starting from the second and leaving the last
+      let risultato = [previous_messages[0], previous_messages.slice(-4)];
+      let flatArray = [risultato[0], ...risultato[1]];
+      console.log('PROVA:')
+      console.log(flatArray)
+      let obj = Object.fromEntries(risultato)
+  
+    
     const chatmodel= req.body.chatmodel
     console.log(prompt)
+    console.log(previous_messages)
+    console.log('Provolone:')
+    console.log(previous_messages1)
+    console.log('Prova: ')
     console.log(previous_message)
-    let risultato = [previous_message[0], previous_message.slice(-4)];
-    let flatArray = [risultato[0], ...risultato[1]];
 
 
     const response = await openai.chat.completions.create({
@@ -75,4 +91,4 @@ app.post('/', async (req, res) => {
   }
 })
 
-app.listen(5500, () => console.log('AI server started on http://localhost:5500'))
+app.listen(5500, () => console.log('AI server started on http://localhost5500'))
