@@ -14,6 +14,7 @@ var counter_html=0;
 
 var i;
 
+
 // Quando l'utente clicca sul bottone, apre la modal
 btn.onclick = function() {
     modal.style.display = "block";
@@ -53,7 +54,7 @@ input.addEventListener('keyup', function(event) {
 
 let previous_message=[{
   "role": "system",
-  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Never write the javascript component."
+  "content": "You are a helpful assistant who translates my instructions into code. You always provide me the code of an index.html file (with the css code in the style tag). Always write the Javascript component separately as if it were another file, by starting with ```javascript."
 }]
 
 
@@ -89,9 +90,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     rightarrow.addEventListener('click', function(){
         console.log("freccia destra")
+        console.log(counter)
+        console.log(counter_html)
         if (parseInt(counter.innerHTML) < counter_html){
             counter.innerHTML=parseInt(counter.innerHTML)+1
         }
+        
+        
         if (position + 2 > 3) {
             position=position + 2
             console.log('ciao')
@@ -135,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 counter.innerHTML=parseInt(counter.innerHTML)-1
             }
         
+        
 
             if (match3 && match4) {  // If there's a match and match2
           
@@ -176,18 +182,18 @@ function loader(element) {
 }
 
 function typeText(element, text) {
-    //let index = 0
-    
-    //let interval = setInterval(() => {
-    //    if (index < text.length) {
-    //        element.innerHTML += text.charAt(index)
-    //        index++
-    //    } else {
-    //        clearInterval(interval)
-    //    }
-    //}, 20)
-    element.innerHTML=text
+    let index = 0
+
+    let interval = setInterval(() => {
+        if (index < text.length) {
+            element.innerHTML += text.charAt(index)
+            index++
+        } else {
+            clearInterval(interval)
+        }
+    }, 20)
 }
+
 function typeText1(element, text,prova,uniqueIdbot,codice) {
     var blabla = document.getElementById(uniqueIdbot);
     blabla.style.display='block'
@@ -220,11 +226,13 @@ function chatStripe(isAi, value, uniqueId) {
                     />
                 </div>
                 <div class="message" id=${uniqueId}>${value}</div>
-            </div>
+                
+                </div>
         </div>
     `
     )
 }
+
 function chatStripeBot(value,uniqueId,uniqueIdbot,codice){
     return (
         `
@@ -343,23 +351,26 @@ const handleSubmit = async (e) => {
             output.contentDocument.body.innerHTML = htmlContent.trim()
             console.log(htmlContent.trim()); // Print out the HTML content
             let provolone=inputText.replace(htmlContent,"")
-            
+            console.log(provolone)
             provolone=provolone.replace("```html",'(Check out the code below)')
             provolone=provolone.replace("```","")
-            
+            console.log(uniqueIdbot)
+            console.log(codice)
             counter_html=counter_html+1
             counter.innerHTML=parseInt(counter.innerHTML)+1
             typeText1(messageDiv, provolone,htmlContent,uniqueIdbot,codice)
         }
          else {
         console.log("No HTML content found");
+        console.log(previous_message.length)
         typeText(messageDiv, parsedData)
+
         }
         
         
         
 
-        //typeText(messageDiv, parsedData)
+        
     } else {
         const err = await response.text()
 
